@@ -32,8 +32,10 @@
       }
 
       function moveTo(newlat, newlng){
-        map.setCenter({lat: newlat, lng: newlng});
+        var newpos =  {lat: newlat, lng: newlng}
+        map.setCenter(newpos);
         map.setZoom(17);
+        var marker = new google.maps.Marker({position: newpos, map: map});
       }
 
     </script>
