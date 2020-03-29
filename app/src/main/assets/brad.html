@@ -10,6 +10,9 @@
     function test2(){
         alert("OK");
     }
+    function test3(){
+        brad.callFromJS(urname.value);
+    }
 </script>
 <h1>Brad Big Company</h1>
 <hr>
@@ -20,6 +23,11 @@
 <hr>
 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
     Test2
+</button>
+<hr>
+<input type="text" id="urname" />
+<button type="button" class="btn btn-danger" onclick="test3()">
+    Test3
 </button>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

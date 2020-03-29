@@ -1,10 +1,14 @@
 package tw.org.iii.brad.brad21;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -33,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         settings.setBuiltInZoomControls(true);
         settings.setDisplayZoomControls(true);
 
+        webView.addJavascriptInterface(new MyJSObject(), "brad");
+
         //webView.loadUrl("https://www.iii.org.tw");
         webView.loadUrl("file:///android_asset/brad.html");
     }
@@ -53,4 +59,28 @@ public class MainActivity extends AppCompatActivity {
         Log.v("brad", String.format("javascript:test1(%s)", strMax));
         webView.loadUrl(String.format("javascript:test1(%s)", strMax));
     }
+
+    public class MyJSObject {
+        @JavascriptInterface
+        public void callFromJS(String urname){
+            Log.v("brad", "OK: " + urname);
+            Message message = new Message();
+            Bundle data = new Bundle();
+            data.putString("urname", urname);
+            message.setData(data);
+            uiHandler.sendMessage(message);
+            //max.setText(urname);
+        }
+    }
+
+    private UIHandler uiHandler = new UIHandler();
+    private class UIHandler extends Handler {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            String urname = msg.getData().getString("urname");
+            max.setText(urname);
+        }
+    }
+
 }
