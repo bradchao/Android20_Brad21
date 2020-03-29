@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Log.v("brad", response);
                         parseJSON(response);
                     }
                 },
